@@ -1,0 +1,44 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Semana 3</title>
+    <style>
+      input {
+        height: 30px;
+        width: 400px;
+        margin: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <input id="usuario-nome" placeholder="Qual seu nome?" /><br>
+    <input id="endereco-cep" onfocus= "buscarCEP()" placeholder="Digite seu CEP" /><br>
+    <input id="endereco-rua" placeholder="Digite sua rua" /><br>
+    <input id="endereco-bairro" placeholder="Digite seu bairro" /><br>
+    <input id="endereco-cidade" placeholder="Digite sua cidade" /><br>
+    <input id="endereco-estado" placeholder="Digite seu estado?" /><br>
+
+    <input type="file" onchange="showFile(this)" />
+    <button onclick="salvar()">Salvar</button>
+
+    <script>
+
+        function buscarCEP(){
+            let cep = document.getElementById("endereco-cep").value
+            let url = "https://brasilapi.com.br/api/cep/v1/"+cep
+
+            fetch(url).then(function(dados){
+                dados.json().then(function(endereco){
+                    document.getElementById("endereco-rua").value = endereco.street;
+                    document.getElementById("endereco-bairro").value = endereco.neighborhood;
+                    document.getElementById("endereco-cidade").value = endereco.city;
+                    document.getElementById("endereco-estado").value = endereco.state;
+                })
+            })
+        }
+    </script>
+  </body>
+</html>

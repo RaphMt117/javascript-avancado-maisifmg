@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <p>Adicione uma tarefa: </p>
+    <input id="todoItem" type="text">
+    <button onclick="todoAdd()">Adicionar</button>
+
+    <p id="todoList"></p>
+
+    <script>
+        let todoItens = []
+        function todoAdd(){
+            let todoItem = document.getElementById('todoItem').value
+            todoItens.push(todoItem)
+
+            if (todoItens.length == 1) {
+                document.getElementById('todoList').innerText = ('Item da lista: ' + todoItens)
+            }
+            else {
+                document.getElementById('todoList').innerText = ('Itens da lista: ' + todoItens)
+            }
+        }
+
+    </script>
+    
+</body>
+</html>
+

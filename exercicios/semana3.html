@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Semana 3</title>
+    <style>
+      input {
+        height: 30px;
+        width: 400px;
+        margin: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <input id="usuario-nome" placeholder="Qual seu nome?" /><br>
+    <input id="endereco-cep" placeholder="Digite seu CEP" /><br>
+    <input id="endereco-rua" placeholder="Digite sua rua" /><br>
+    <input id="endereco-bairro" placeholder="Digite seu bairro" /><br>
+    <input id="endereco-cidade" placeholder="Digite sua cidade" /><br>
+    <input id="endereco-estado" placeholder="Digite seu estado?" /><br>
+
+    <input type="file" onchange="showFile(this)" />
+    <button onclick="salvar()">Salvar</button>
+
+    <script>
+      function showFile(input) {
+        let file = input.files[0];
+
+        let fr = new FileReader();
+        fr.onload = function(dadosArquivo){
+          let dados = JSON.parse(dadosArquivo.target.result);
+          document.getElementById("usuario-nome").value = dados.nome;
+          document.getElementById("endereco-cep").value = dados.cep;
+          document.getElementById("endereco-rua").value = dados.rua;
+          document.getElementById("endereco-bairro").value = dados.bairro;
+          document.getElementById("endereco-cidade").value = dados.cidade;
+          document.getElementById("endereco-estado").value = dados.estado;
+        }
+      }
+
+      function salvar() {
+        let templink = document.createElement("a")
+        let dadosSalvar = {
+          "nome":document.getElementById("usuario-nome").value,
+          "cep":document.getElementById("endereco-cep").value, 
+          "rua":document.getElementById("endereco-rua").value,
+          "bairro":document.getElementById("endereco-bairro").value,
+          "cidade":document.getElementById("endereco-cidade").value,
+          "estado":document.getElementById("endereco-estado").value
+        }
+        let meuArquivo = new Blob([JSON.stringify(dadosSalvar)], {type:"text/plain"})
+        templink.setAttribute("href", URL.createObjectURL(meuArquivo))
+        templink.setAttribute("download", "dados.json")
+        templink.click()
+      }
+    </script>
+  </body>
+</html>
